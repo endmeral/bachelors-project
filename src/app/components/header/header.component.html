@@ -1,4 +1,18 @@
 <header>
-  <h1>{{ title }} <fa-icon [icon]="faGithub"></fa-icon></h1>
-  <app-button color="green" text="Add" (btnClick)="toggleAddEquation()"></app-button>
+  <h1>
+    {{ title }}
+    <!-- <app-button
+      color="green"
+      text="Add"
+      (btnClick)="toggleAddEquation()"
+    ></app-button> -->
+    <a
+      routerLink="/"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ home }}</a
+    >
+    <a routerLink="/library" routerLinkActive="active-link">{{ library }}</a>
+    <a routerLink="/about" routerLinkActive="active-link">{{ about }}</a>
+  </h1>
 </header>
