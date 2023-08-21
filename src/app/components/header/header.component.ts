@@ -8,6 +8,9 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 })
 export class HeaderComponent {
   title: string = 'Equation Plotter'; 
+  home: string = 'Home';
+  library: string = 'Library';
+  about: string = 'About'
   faGithub = faGithub;
 
   toggleAddEquation() {

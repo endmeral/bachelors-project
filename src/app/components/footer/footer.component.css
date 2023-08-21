@@ -5,4 +5,25 @@ footer {
   width: 100%;
   background-color: #99ccff;
   z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Center the text horizontally */
+footer div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style the GitHub link */
+footer a {
+  text-decoration: none;
+  color: #333; /* Adjust the color as needed */
+  margin-left: 5px; /* Add spacing between the name and GitHub icon */
+}
+
+footer fa-icon {
+  font-size: 24px; /* Adjust the size as needed */
 }
