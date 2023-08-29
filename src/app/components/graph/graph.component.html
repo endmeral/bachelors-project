@@ -1,0 +1,127 @@
+<mat-card>
+  <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+    <mat-card-title><h1>Plotter</h1></mat-card-title>
+  </mat-card-header>
+
+  <div fxLayoutGap="10" fxLayout="column" fxLayout.gt-md="row">
+    <div fxFlex="66%">
+      <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center"
+        >Graph
+        <button mat-flat-button color="primary" (click)="toggleGrid()">
+          Toggle Grid
+        </button>
+      </mat-toolbar>
+      <div id="function-plot-container"></div>
+    </div>
+
+    <div fxFlex="33%">
+      <mat-toolbar>Add a new equation</mat-toolbar>
+      <form [formGroup]="equationForm" class="example-form">
+        <div fxLayout="column" fxLayoutGap="10" fxLayout.xs="column">
+          <mat-form-field>
+            <mat-label>Select Equation Type</mat-label>
+            <mat-select
+              formControlName="equationType"
+              placeholder="Select Graph Type"
+            >
+              <mat-option value="linear">Linear</mat-option>
+              <mat-option value="parametric">Parametric</mat-option>
+              <mat-option value="polar">Polar</mat-option>
+            </mat-select>
+            <mat-hint>Default is linear</mat-hint>
+          </mat-form-field>
+    
+          <div *ngIf="equationForm.get('equationType')?.value === 'linear'">
+            <mat-form-field floatLabel="always">
+              <mat-label>Enter equation</mat-label>
+              <input formControlName="fn" matInput placeholder="x * x" />
+              <span matTextPrefix>y = &nbsp;</span>
+            </mat-form-field>
+          </div>
+    
+          <div
+            *ngIf="equationForm.get('equationType')?.value === 'parametric'"
+            fxLayoutGap="10"
+          >
+            <mat-form-field floatLabel="always">
+              <mat-label>Enter x equation</mat-label>
+              <input formControlName="x" matInput placeholder="t * cos(t)" />
+              <span matTextPrefix>x = &nbsp;</span>
+            </mat-form-field>
+            <mat-form-field floatLabel="always">
+              <mat-label>Enter y equation</mat-label>
+              <input formControlName="y" matInput placeholder="t * sin(t)" />
+              <span matTextPrefix>y = &nbsp;</span>
+            </mat-form-field>
+          </div>
+    
+          <div
+            *ngIf="equationForm.get('equationType')?.value === 'polar'"
+            fxLayoutGap="10"
+          >
+            <mat-form-field floatLabel="always">
+              <mat-label>Enter polar equation</mat-label>
+              <input formControlName="polar" matInput placeholder="2 * cos(θ)" />
+              <span matTextPrefix>r = &nbsp;</span>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10" fxLayout.xs="column">
+          <mat-form-field>
+            <mat-label>Select Graph Type</mat-label>
+            <mat-select formControlName="graphType" placeholder="Select Graph Type">
+              <mat-option [value]="graphTypes[0]" [disabled]="equationForm.get('equationType')?.value !== 'linear'">Interval</mat-option>
+              <mat-option [value]="graphTypes[1]">Polyline</mat-option>
+              <mat-option [value]="graphTypes[2]">Scatter</mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+          <mat-form-field *ngIf="equationForm.get('graphType')?.value === 'scatter'">
+            <mat-label>Enter sample size</mat-label>
+            <input formControlName="nSamples" matInput placeholder="200" />
+            <mat-hint>This is optional.</mat-hint>
+          </mat-form-field>
+        </div>
+        <mat-card-header><mat-card-subtitle>Other options</mat-card-subtitle></mat-card-header>
+        <div fxLayout="row" fxLayoutGap="10" fxLayout.xs="column">
+          <mat-form-field floatLabel="always">
+            <mat-label>Enter range start</mat-label>
+            <input formControlName="rangeStart" matInput placeholder="0" />
+          </mat-form-field>
+          <mat-form-field floatLabel="always">
+            <mat-label>Enter range end</mat-label>
+            <input formControlName="rangeEnd" matInput placeholder="2 * pi" />
+          </mat-form-field>
+        </div>
+        <mat-card-actions>
+          <button (click)="saveEquation()" mat-raised-button color="primary">
+            Add equation
+          </button></mat-card-actions
+        >
+      </form>
+      <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center"
+        >Functions
+        <button mat-raised-button color="warn" (click)="deleteSelectedEquations()">
+          Delete Selected
+        </button>
+      </mat-toolbar>
+      <mat-selection-list #functions>
+        <mat-list-option *ngFor="let equation of equations" [value]="getEquationValue(equation)">
+          <!-- Display based on equation type -->
+          <ng-container *ngIf="equation.fnType === 'linear'; else parametricPolar">
+            {{ equation.fnType }}: y = {{ equation.fn }}
+          </ng-container>
+          <ng-template #parametricPolar>
+            <ng-container *ngIf="equation.fnType === 'parametric'; else polar">
+              {{ equation.fnType }}: x = {{ equation.x }}; y = {{ equation.y }}
+            </ng-container>
+            <ng-template #polar>
+              {{ equation.fnType }}: r = {{ equation.r }}
+            </ng-template>
+          </ng-template>
+        </mat-list-option>
+      </mat-selection-list>
+      
+    </div>
+  </div>
+</mat-card>

@@ -1,15 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PlotterComponent } from './plotter.component';
 
-describe('PlotterComponent', () => {
-  let component: PlotterComponent;
-  let fixture: ComponentFixture<PlotterComponent>;
+import { GraphComponent } from './graph.component';
+
+describe('GraphComponent', () => {
+  let component: GraphComponent;
+  let fixture: ComponentFixture<GraphComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PlotterComponent]
+      declarations: [GraphComponent]
     });
-    fixture = TestBed.createComponent(PlotterComponent);
+    fixture = TestBed.createComponent(GraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

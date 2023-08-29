@@ -1,0 +1,42 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title><h1>Library</h1></mat-card-title>
+    <mat-card-subtitle>A library of famous curve equations.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-table [dataSource]="equationsDataSource" matSort matPaginator>
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Title
+        </mat-header-cell>
+        <mat-cell *matCellDef="let equation"
+          ><a [routerLink]="['/equation-details', equation.title]">{{
+            equation.title
+          }}</a></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="equation">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Equation
+        </mat-header-cell>
+        <mat-cell *matCellDef="let equation">
+          {{ equation.equation }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Description
+        </mat-header-cell>
+        <mat-cell *matCellDef="let equation">
+          {{ equation.description }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>

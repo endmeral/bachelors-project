@@ -1,0 +1,16 @@
+<mat-card class="container">
+  <mat-card-header>
+    <mat-card-title><h1>About Equation Plotter</h1></mat-card-title>
+    <mat-card-subtitle>A website for plotting equations</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <h3>Bachelor's Project</h3>
+      Check out the github repository
+      <a href="https://github.com/endmeral/bachelors-project" target="_blank"
+        >here</a
+      >.
+      <div *ngFor="let equation of equations">
+        {{ equation.name }} - {{ equation.description }} - {{ equation.data.x }}
+      </div>
+  </mat-card-content>
+</mat-card>
