@@ -1,19 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
-export class AboutComponent implements OnInit{
+export class AboutComponent {
   title: string = 'Equation Plotter'; 
-  equations: any[] = [];
-
-  constructor(private apiService: ApiService) {}
-
-  ngOnInit(): void {
-    this.apiService.getEquations().subscribe((data) => {
-      this.equations = data;
-    });
-  }
 }

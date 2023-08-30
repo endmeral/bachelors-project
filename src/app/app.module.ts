@@ -32,11 +32,13 @@ import { LibraryComponent } from './pages/library/library.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { MainComponent } from './pages/main/main.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { EquationComponent } from './components/equation/equation.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
   { path: 'library', component: LibraryComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'library/:url_link', component: EquationComponent },
 ];
 
 @NgModule({
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     GraphComponent,
     MainComponent,
     MainNavComponent,
+    EquationComponent,
   ],
   imports: [
     BrowserModule,

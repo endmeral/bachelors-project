@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title
+      ><h1>{{ equationData?.eq_name }}</h1></mat-card-title
+    >
+    <mat-card-subtitle>{{ equationData?.description }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <div fxLayoutGap="10" fxLayout="column" fxLayout.gt-md="row">
+    <div fxFlex.gt-md="50">
+      <mat-toolbar>Graph</mat-toolbar>
+      <div id="function-plot-container"></div>
+    </div>
+
+    <div fxFlex.gt-md="50">
+      <mat-toolbar>Details</mat-toolbar>
+      <mat-card-title> Equation </mat-card-title>
+      <p>{{ equationData?.equation_text }}</p>
+      <mat-card-title> Description </mat-card-title>
+      <p>{{equationData?.desc_long}}</p>
+    </div>
+  </div>
+</mat-card>

@@ -12,8 +12,11 @@ export class ApiService {
 
   getEquations(): Observable<any[]> {
     const url = `${this.baseUrl}/api/equations`;
-    console.log("test",this.http.get<any[]>(url));
     return this.http.get<any[]>(url);
-    
+  }
+
+  getEquationByUrlLink(urlLink: string): Observable<any> {
+    const url = `${this.baseUrl}/api/equations/${urlLink}`;
+    return this.http.get<any>(url);
   }
 }

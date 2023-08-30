@@ -1,16 +1,66 @@
 <mat-card class="container">
   <mat-card-header>
     <mat-card-title><h1>About Equation Plotter</h1></mat-card-title>
-    <mat-card-subtitle>A website for plotting equations</mat-card-subtitle>
+    <mat-card-subtitle
+      ><h2>A website for plotting equations</h2></mat-card-subtitle
+    >
   </mat-card-header>
   <mat-card-content>
-    <h3>Bachelor's Project</h3>
-      Check out the github repository
+    <h2>What is this?</h2>
+    <p>
+      I've built this website to host my Bachelor's Thesis project. It serves
+      two purposes:
+    </p>
+    <ol>
+      <li>To allow users to easily plot equations.</li>
+      <li>To host a library of interesting equations.</li>
+    </ol>
+    <p>
+      The main feature, the Plotter, lets you plot linear, parametric, or polar
+      equations. You can plot multiple equations, set a range within which to
+      plot them, and choose whether you wish to display them as lines or as a
+      scatter plot.
+    </p>
+    <p>
+      The Library tab has a list of interesting equations (well, at least the
+      ones I found interesting; different strokes for different folks). You can
+      see the equation, a graph of the equation, and a short description. I plan
+      to update this list regularly, so if you have an equation you wish to see
+      here, let me know.
+    </p>
+    <h2>How was this built?</h2>
+    <p>
+      The frontend is made using Angular, and you probably noticed the Angular
+      Material elements. Check out the GitHub repository
       <a href="https://github.com/endmeral/bachelors-project" target="_blank"
         >here</a
       >.
-      <div *ngFor="let equation of equations">
-        {{ equation.name }} - {{ equation.description }} - {{ equation.data.x }}
-      </div>
+    </p>
+    <p>
+      I used
+      <a href="https://mauriciopoppe.github.io/function-plot/" target="_blank"
+        >function-plot</a
+      >
+      in order to create the plots for the equations. It's a very nice library,
+      very efficient and easy to use, and it creates beautiful graphs.
+    </p>
+    <h2>Some thoughts</h2>
+    <p>
+      This is my first attempt at building a website from scratch, by myself. It
+      was quite an adventure to build it. Even though I've worked in frontend
+      before as a Vue.js developer, most of my work consisted of: adding a
+      button, fixing an alignment issue, adding a feature nobody will ever use,
+      and so on. I've never had to create something from scratch or think much
+      about what I want to add, what I think is good. It's nice to be able to
+      make those choices yourself, and it's very interesting and even more
+      rewarding to implement them.
+    </p>
+    <p>
+      I feel like people (including myself) too often just consume and never end
+      up creating anything. You get home, tired from work, and all you do for
+      the rest of the day is watch short-format videos until you go completely
+      numb. Sometimes it's nice to create something that exists somewhere, and
+      someone can see it, and they can say whether it's good or bad.
+    </p>
   </mat-card-content>
 </mat-card>

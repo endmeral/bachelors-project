@@ -17,7 +17,7 @@
     <div fxFlex="33%">
       <mat-toolbar>Add a new equation</mat-toolbar>
       <form [formGroup]="equationForm" class="example-form">
-        <div fxLayout="column" fxLayoutGap="10" fxLayout.xs="column">
+        <div fxLayout="column" fxLayoutGap="10">
           <mat-form-field>
             <mat-label>Select Equation Type</mat-label>
             <mat-select
@@ -31,40 +31,35 @@
             <mat-hint>Default is linear</mat-hint>
           </mat-form-field>
     
-          <div *ngIf="equationForm.get('equationType')?.value === 'linear'">
-            <mat-form-field floatLabel="always">
+          <div *ngIf="equationForm.get('equationType')?.value === 'linear'" fxLayout="column">
+            <mat-form-field floatLabel="always" fxFlex>
               <mat-label>Enter equation</mat-label>
               <input formControlName="fn" matInput placeholder="x * x" />
               <span matTextPrefix>y = &nbsp;</span>
             </mat-form-field>
           </div>
-    
-          <div
-            *ngIf="equationForm.get('equationType')?.value === 'parametric'"
-            fxLayoutGap="10"
-          >
-            <mat-form-field floatLabel="always">
+          
+          <div *ngIf="equationForm.get('equationType')?.value === 'parametric'" fxLayout="column" fxLayoutGap="10">
+            <mat-form-field floatLabel="always" fxFlex>
               <mat-label>Enter x equation</mat-label>
               <input formControlName="x" matInput placeholder="t * cos(t)" />
               <span matTextPrefix>x = &nbsp;</span>
             </mat-form-field>
-            <mat-form-field floatLabel="always">
+            <mat-form-field floatLabel="always" fxFlex>
               <mat-label>Enter y equation</mat-label>
               <input formControlName="y" matInput placeholder="t * sin(t)" />
               <span matTextPrefix>y = &nbsp;</span>
             </mat-form-field>
           </div>
-    
-          <div
-            *ngIf="equationForm.get('equationType')?.value === 'polar'"
-            fxLayoutGap="10"
-          >
-            <mat-form-field floatLabel="always">
+          
+          <div *ngIf="equationForm.get('equationType')?.value === 'polar'" fxLayout="column" fxLayoutGap="10">
+            <mat-form-field floatLabel="always" fxFlex>
               <mat-label>Enter polar equation</mat-label>
-              <input formControlName="polar" matInput placeholder="2 * cos(θ)" />
+              <input formControlName="polar" matInput placeholder="2 * cos(theta)" />
               <span matTextPrefix>r = &nbsp;</span>
             </mat-form-field>
           </div>
+          
         </div>
         <div fxLayout="row" fxLayoutGap="10" fxLayout.xs="column">
           <mat-form-field>

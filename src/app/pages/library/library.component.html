@@ -1,19 +1,18 @@
 <mat-card class="container">
   <mat-card-header>
     <mat-card-title><h1>Library</h1></mat-card-title>
-    <mat-card-subtitle>A library of famous curve equations.</mat-card-subtitle>
+    <mat-card-subtitle><h2>A library of famous curve equations.</h2></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-table [dataSource]="equationsDataSource" matSort matPaginator>
+    <mat-table [dataSource]="dataSource" matSort matPaginator>
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           Title
         </mat-header-cell>
-        <mat-cell *matCellDef="let equation"
-          ><a [routerLink]="['/equation-details', equation.title]">{{
-            equation.title
-          }}</a></mat-cell
-        >
+        <mat-cell *matCellDef="let equation">
+          <a [routerLink]="['/library', equation.url_link]">{{ equation.eq_name }}</a>
+        </mat-cell>
+        
       </ng-container>
 
       <ng-container matColumnDef="equation">
@@ -21,7 +20,7 @@
           Equation
         </mat-header-cell>
         <mat-cell *matCellDef="let equation">
-          {{ equation.equation }}
+          {{ equation.equation_text }}
         </mat-cell>
       </ng-container>
 
