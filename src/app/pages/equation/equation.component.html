@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card >
   <mat-card-header>
     <mat-card-title
       ><h1>{{ equationData?.eq_name }}</h1></mat-card-title
@@ -15,9 +15,12 @@
     <div fxFlex.gt-md="50">
       <mat-toolbar>Details</mat-toolbar>
       <mat-card-title> Equation </mat-card-title>
-      <p>{{ equationData?.equation_text }}</p>
+      <mat-card-content [appMath]="mathLatex"></mat-card-content>
+      <mat-card-content [appMath] *ngIf="!isLoading">
+        $${{ equationData?.equation_text }}$$
+      </mat-card-content>
       <mat-card-title> Description </mat-card-title>
-      <p>{{equationData?.desc_long}}</p>
+      <p>{{ equationData?.desc_long }}</p>
     </div>
   </div>
 </mat-card>

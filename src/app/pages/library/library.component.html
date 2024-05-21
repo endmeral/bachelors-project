@@ -1,26 +1,42 @@
 <mat-card class="container">
   <mat-card-header>
     <mat-card-title><h1>Library</h1></mat-card-title>
-    <mat-card-subtitle><h2>A library of famous curve equations.</h2></mat-card-subtitle>
+    <mat-card-subtitle
+      ><h2>A library of famous curve equations.</h2></mat-card-subtitle
+    >
   </mat-card-header>
   <mat-card-content>
-    <mat-table [dataSource]="dataSource" matSort matPaginator>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <mat-spinner
+        *ngIf="isLoading"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      ></mat-spinner>
+    </div>
+
+    <mat-table
+      [dataSource]="dataSource"
+      matSort
+      matPaginator
+      *ngIf="!isLoading"
+    >
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           Title
         </mat-header-cell>
         <mat-cell *matCellDef="let equation">
-          <a [routerLink]="['/library', equation.url_link]">{{ equation.eq_name }}</a>
+          <a [routerLink]="['/library', equation.url_link]">{{
+            equation.eq_name
+          }}</a>
         </mat-cell>
-        
       </ng-container>
 
       <ng-container matColumnDef="equation">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           Equation
         </mat-header-cell>
-        <mat-cell *matCellDef="let equation">
-          {{ equation.equation_text }}
+        <mat-cell *matCellDef="let equation" [appMath]>
+          ${{ equation.equation_text }}$
         </mat-cell>
       </ng-container>
 

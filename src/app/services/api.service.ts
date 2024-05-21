@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:3000';
-
+  private baseUrl = 'https://ovidiupopa.xyz';
   constructor(private http: HttpClient) {}
 
   getEquations(): Observable<any[]> {

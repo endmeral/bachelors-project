@@ -24,11 +24,10 @@
               formControlName="equationType"
               placeholder="Select Graph Type"
             >
-              <mat-option value="linear">Linear</mat-option>
+              <mat-option value="linear">Cartesian</mat-option>
               <mat-option value="parametric">Parametric</mat-option>
               <mat-option value="polar">Polar</mat-option>
             </mat-select>
-            <mat-hint>Default is linear</mat-hint>
           </mat-form-field>
     
           <div *ngIf="equationForm.get('equationType')?.value === 'linear'" fxLayout="column">
@@ -103,15 +102,12 @@
       <mat-selection-list #functions>
         <mat-list-option *ngFor="let equation of equations" [value]="getEquationValue(equation)">
           <!-- Display based on equation type -->
-          <ng-container *ngIf="equation.fnType === 'linear'; else parametricPolar">
-            {{ equation.fnType }}: y = {{ equation.fn }}
+          <ng-container *ngIf="equation.fnType === 'linear'; else parametricPolar">y = {{ equation.fn }}
           </ng-container>
           <ng-template #parametricPolar>
-            <ng-container *ngIf="equation.fnType === 'parametric'; else polar">
-              {{ equation.fnType }}: x = {{ equation.x }}; y = {{ equation.y }}
+            <ng-container *ngIf="equation.fnType === 'parametric'; else polar">x = {{ equation.x }}; y = {{ equation.y }}
             </ng-container>
-            <ng-template #polar>
-              {{ equation.fnType }}: r = {{ equation.r }}
+            <ng-template #polar>r = {{ equation.r }}
             </ng-template>
           </ng-template>
         </mat-list-option>

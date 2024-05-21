@@ -1,30 +1,40 @@
-import { HostListener, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { HostListener, Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { ApiService } from "../../services/api.service";
+import { MathContent } from "src/app/modules/math/math-content";
 import functionPlot, {
   FunctionPlotOptions,
   FunctionPlotDatum,
-} from 'function-plot';
+} from "function-plot";
 
 @Component({
-  selector: 'app-equation',
-  templateUrl: './equation.component.html',
-  styleUrls: ['./equation.component.css'],
+  selector: "app-equation",
+  templateUrl: "./equation.component.html",
+  styleUrls: ["./equation.component.css"],
 })
 export class EquationComponent implements OnInit {
   equationData: any;
 
-  @HostListener('window:resize', ['$event'])
+  mathLatex: MathContent = {
+    latex: "When $a \\ne 0$, there are two solutions to $\\frac{5}{9}$",
+  };
+
+  isLoading = true;
+
+  @HostListener("window:resize", ["$event"])
   onResize(event: Event): void {
     this.plotGraph();
   }
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+  ) {}
 
   getEquationByUrlLink(urlLink: string): void {
     this.apiService.getEquationByUrlLink(urlLink).subscribe((data) => {
       this.equationData = data;
-  
+
       // Check if equationData.plot_data.range exists and is an array
       if (
         this.equationData.plot_data &&
@@ -32,23 +42,24 @@ export class EquationComponent implements OnInit {
       ) {
         try {
           // Parse and convert each element of the range array to a number
-          this.equationData.plot_data.range = this.equationData.plot_data.range.map((value: string) => {
-            return eval(value);
-          });
+          this.equationData.plot_data.range =
+            this.equationData.plot_data.range.map((value: string) => {
+              return eval(value);
+            });
         } catch (error) {
-          console.error('Error parsing or evaluating range:', error);
+          console.error("Error parsing or evaluating range:", error);
         }
       }
-  
+
       this.plotGraph();
     });
   }
-  
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const urlLink = params['url_link'];
+      const urlLink = params["url_link"];
       this.getEquationByUrlLink(urlLink);
+      this.isLoading = false;
     });
   }
 
@@ -60,20 +71,20 @@ export class EquationComponent implements OnInit {
 
   public plotGraph() {
     const container = document.querySelector(
-      '#function-plot-container'
+      "#function-plot-container",
     ) as HTMLElement;
 
     if (container) {
-      container.innerHTML = ''; // Clear previous content
+      container.innerHTML = ""; // Clear previous content
 
       // Get the width of the container
       const containerWidth = container.offsetWidth;
 
-      // Calculate the height 
+      // Calculate the height
       const height = containerWidth * 0.6;
 
       // Clear previous content
-      container.innerHTML = '';
+      container.innerHTML = "";
 
       const xScale = [-10, 10];
 
@@ -90,8 +101,7 @@ export class EquationComponent implements OnInit {
       // Create the function plot
       functionPlot(options);
     } else {
-      console.error('Container not found!');
+      console.error("Container not found!");
     }
   }
-
 }

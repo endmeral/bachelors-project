@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
+
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
@@ -12,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class LibraryComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['title', 'equation', 'description'];
+  isLoading = true;
 
   constructor(private apiService: ApiService) {
     this.dataSource = new MatTableDataSource<any>();
@@ -26,6 +28,7 @@ export class LibraryComponent implements OnInit {
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.isLoading = false;
     });
   }
 }
