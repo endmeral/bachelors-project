@@ -4,59 +4,59 @@ import {
   AfterViewInit,
   OnInit,
   ViewChild,
-  HostListener
-} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+  HostListener,
+} from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import functionPlot, {
   FunctionPlotOptions,
   FunctionPlotDatum,
-} from 'function-plot';
-import { MatSelectionList, MatListOption } from '@angular/material/list';
+} from "function-plot";
+import { MatSelectionList, MatListOption } from "@angular/material/list";
 
 @Component({
-  selector: 'app-graph',
-  templateUrl: './graph.component.html',
-  styleUrls: ['./graph.component.css'],
+  selector: "app-graph",
+  templateUrl: "./graph.component.html",
+  styleUrls: ["./graph.component.css"],
 })
 export class GraphComponent implements AfterViewInit, OnInit {
   gridEnabled = false;
-  graphTypes = ['interval', 'polyline', 'scatter'];
+  graphTypes = ["interval", "polyline", "scatter"];
   equations: FunctionPlotDatum[] = []; // Variable to store equations
   equationForm: FormGroup;
 
-  @ViewChild('functions') functions!: MatSelectionList;
+  @ViewChild("functions") functions!: MatSelectionList;
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event: Event): void {
-    // Call your function here when the window is resized
+    // Call the function here when the window is resized
     this.plotGraph();
   }
 
-  constructor(private elRef: ElementRef, private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
     this.equationForm = this.formBuilder.group({
-      fn: [''],
-      nSamples: [''],
-      graphType: ['interval'],
-      equationType: ['linear'],
-      x: [''],
-      y: [''],
-      polar: [''],
-      rangeStart: [''],
-      rangeEnd: [''],
+      fn: [""],
+      nSamples: [""],
+      graphType: ["interval"],
+      equationType: ["linear"],
+      x: [""],
+      y: [""],
+      polar: [""],
+      rangeStart: [""],
+      rangeEnd: [""],
     });
   }
 
   ngOnInit() {
     // Subscribe to changes in equationType
     this.equationForm
-      .get('equationType')
+      .get("equationType")
       ?.valueChanges.subscribe((equationType) => {
-        if (equationType === 'parametric' || equationType === 'polar') {
+        if (equationType === "parametric" || equationType === "polar") {
           // Set graphType to 'polyline' for parametric or polar equations
-          this.equationForm.get('graphType')?.setValue('polyline');
+          this.equationForm.get("graphType")?.setValue("polyline");
         } else {
           // Set graphType to 'interval' for other equation types
-          this.equationForm.get('graphType')?.setValue('interval');
+          this.equationForm.get("graphType")?.setValue("interval");
         }
       });
   }
@@ -74,62 +74,62 @@ export class GraphComponent implements AfterViewInit, OnInit {
     };
 
     if (rangeStartInput && rangeEndInput) {
-    // Check if both range inputs have values
-    let rangeStart = parseFloat(rangeStartInput);
-    let rangeEnd = parseFloat(rangeEndInput);
+      // Check if both range inputs have values
+      let rangeStart = parseFloat(rangeStartInput);
+      let rangeEnd = parseFloat(rangeEndInput);
 
-    // Check if rangeStart and rangeEnd are valid numbers
-    if (!isNaN(rangeStart) && !isNaN(rangeEnd)) {
-      // Check if the inputs contain "pi" and multiply accordingly
-      if (rangeStartInput.includes('* pi')) {
-        rangeStart = rangeStart * Math.PI;
-      }
-      if (rangeEndInput.includes('* pi')) {
-        rangeEnd = rangeEnd * Math.PI;
-      }
+      // Check if rangeStart and rangeEnd are valid numbers
+      if (!isNaN(rangeStart) && !isNaN(rangeEnd)) {
+        // Check if the inputs contain "pi" and multiply accordingly
+        if (rangeStartInput.includes("* pi")) {
+          rangeStart = rangeStart * Math.PI;
+        }
+        if (rangeEndInput.includes("* pi")) {
+          rangeEnd = rangeEnd * Math.PI;
+        }
 
-      // Create a range array
-      equationData.range = [rangeStart, rangeEnd];
-    } else {
-      // Handle invalid input (e.g., display an error message)
-      // You can add your error handling logic here
+        // Create a range array
+        equationData.range = [rangeStart, rangeEnd];
+      } else {
+        // Handle invalid input (e.g., display an error message)
+        // You can add your error handling logic here
+      }
     }
-  }
 
     const equationType = this.equationForm.value.equationType;
 
-    if (equationType === 'linear') {
+    if (equationType === "linear") {
       const equationFn = this.equationForm.value.fn;
-      if (equationFn && equationFn.trim() !== '') {
+      if (equationFn && equationFn.trim() !== "") {
         equationData.fn = equationFn.trim();
 
-        if (equationSamples && equationSamples.trim() !== '') {
+        if (equationSamples && equationSamples.trim() !== "") {
           equationData.nSamples = equationSamples.trim();
         }
 
         this.equations.push(equationData);
       }
-    } else if (equationType === 'parametric') {
+    } else if (equationType === "parametric") {
       const x = this.equationForm.value.x;
       const y = this.equationForm.value.y;
-      if (x && x.trim() !== '' && y && y.trim() !== '') {
+      if (x && x.trim() !== "" && y && y.trim() !== "") {
         equationData.x = x.trim();
         equationData.y = y.trim();
         equationData.fnType = equationType; // Set fnType to 'parametric'
 
-        if (equationSamples && equationSamples.trim() !== '') {
+        if (equationSamples && equationSamples.trim() !== "") {
           equationData.nSamples = equationSamples.trim();
         }
 
         this.equations.push(equationData);
       }
-    } else if (equationType === 'polar') {
+    } else if (equationType === "polar") {
       const polar = this.equationForm.value.polar;
-      if (polar && polar.trim() !== '') {
+      if (polar && polar.trim() !== "") {
         equationData.r = polar.trim();
         equationData.fnType = equationType; // Set fnType to 'polar'
 
-        if (equationSamples && equationSamples.trim() !== '') {
+        if (equationSamples && equationSamples.trim() !== "") {
           equationData.nSamples = equationSamples.trim();
         }
 
@@ -169,20 +169,20 @@ export class GraphComponent implements AfterViewInit, OnInit {
 
   public plotGraph() {
     const container = document.querySelector(
-      '#function-plot-container'
+      "#function-plot-container",
     ) as HTMLElement;
 
     if (container) {
-      container.innerHTML = ''; // Clear previous content
+      container.innerHTML = ""; // Clear previous content
 
       // Get the width of the container
       const containerWidth = container.offsetWidth;
 
-      // Calculate the height as half of the width
+      // Calculate the height as 0.6 of the width
       const height = containerWidth * 0.6;
 
       // Clear previous content
-      container.innerHTML = '';
+      container.innerHTML = "";
 
       // desired xDomain values
       const xScale = [-10, 10];
@@ -201,7 +201,7 @@ export class GraphComponent implements AfterViewInit, OnInit {
       // Create the function plot
       functionPlot(options);
     } else {
-      console.error('Container not found!'); // Handle the error appropriately
+      console.error("Container not found!"); // Handle the error appropriately
     }
   }
 
@@ -214,17 +214,17 @@ export class GraphComponent implements AfterViewInit, OnInit {
       const equationType = equation.fnType;
 
       // Check for the equation type and delete accordingly
-      if (equationType === 'linear' && selectedValues.includes(equation.fn)) {
+      if (equationType === "linear" && selectedValues.includes(equation.fn)) {
         return false; // Delete linear equation with matching fn
       } else if (
-        equationType === 'parametric' &&
+        equationType === "parametric" &&
         selectedValues.some(
-          (value) => value === this.getEquationValue(equation)
+          (value) => value === this.getEquationValue(equation),
         )
       ) {
         return false; // Delete parametric equations with matching x and y
       } else if (
-        equationType === 'polar' &&
+        equationType === "polar" &&
         selectedValues.includes(equation.r)
       ) {
         return false; // Delete polar equation with matching r
@@ -235,16 +235,16 @@ export class GraphComponent implements AfterViewInit, OnInit {
 
     // Clear the selection by setting selected to false for each option
     selectedOptions.forEach((option) =>
-      (option as MatListOption)._setSelected(false)
+      (option as MatListOption)._setSelected(false),
     );
 
     this.plotGraph();
   }
 
   getEquationValue(equation: FunctionPlotDatum): string {
-    if (equation.fnType === 'parametric') {
+    if (equation.fnType === "parametric") {
       return `${equation.x} ${equation.y}`;
-    } else if (equation.fnType === 'polar') {
+    } else if (equation.fnType === "polar") {
       // Set a different value for polar equations if needed
       return `${equation.r}`;
     } else {
@@ -254,6 +254,6 @@ export class GraphComponent implements AfterViewInit, OnInit {
   logSelectedFunctions() {
     const selectedOptions = this.functions.selectedOptions.selected;
     const selectedFunctions = selectedOptions.map((option) => option.value);
-    console.log('Selected Functions:', selectedFunctions);
+    console.log("Selected Functions:", selectedFunctions);
   }
 }

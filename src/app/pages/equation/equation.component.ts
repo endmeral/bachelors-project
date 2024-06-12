@@ -16,7 +16,7 @@ export class EquationComponent implements OnInit {
   equationData: any;
 
   mathLatex: MathContent = {
-    latex: "When $a \\ne 0$, there are two solutions to $\\frac{5}{9}$",
+    latex: "",
   };
 
   isLoading = true;
